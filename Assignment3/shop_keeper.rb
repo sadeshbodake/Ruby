@@ -32,7 +32,8 @@ class ShopKeeper
          p1=Product.new
          p1.search_product
       when "5\n"
-      #  s1.edit_product
+         p1=Product.new
+         p1.edit_product
       when "6\n"
          break
     end
