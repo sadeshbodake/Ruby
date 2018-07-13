@@ -5,11 +5,11 @@ class HtmlToFile
   def parse_file
     data = File.read(FILE)
     output = []
-    html_rows = data.scan(%r{<tr.*?>(.*?)</tr>}).flatten
+    html_rows = parse_html(data,"tr")
 
     html_rows.each do |row|
      row.gsub!("&quot;&quot;","")
-     cells = row.scan(%r{<td*?>(.*?)</td>}).flatten | row.scan(%r{<th*?>(.*?)</th>}).flatten
+     cells = parse_html(row,"td") | parse_html(row,"th")
      output << cells
     end
 
@@ -19,8 +19,12 @@ class HtmlToFile
     end
   end
 
+  def parse_html(data,tag)
+    return data.scan(%r{<#{tag}.*?>(.*?)</#{tag}>}).flatten
+  end
+
   def append_content(line)
-    file=File.open("output.txt",'a') do |file|
+    file=File.open("output.csv",'a') do |file|
         file.puts "#{line}"
     end
   end
