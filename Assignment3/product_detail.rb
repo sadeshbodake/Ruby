@@ -1,45 +1,44 @@
 class Product
- # def initialize(name,price,stock,company)
- #   @product_name=name
- #  @product_price=price
- #  @product_st=stock
- # @product_company=company
-  #end
-  #def initialize(name)
-   # @product_name=name
-  #end
+  def initialize(name='',price='',stock='',company='')
+    @product_name=name
+    @product_price=price
+    @product_st=stock
+    @product_company=company
+    $separator='|'
+    $id=1
+  end
+
   def add_product
-    puts "Enter Name Of Product"
-    product_name=gets.chomp
-    puts "Enter Price Of the Product"
-    product_price=gets.chomp
-    puts "Enter Product Stock-item"
-    product_st=gets.chomp
-    puts "Enter Company Name Of the Product"
-    product_company=gets.chomp
-    f1=FileStructure.new
-    f1.add_detail(product_name,product_price,product_st,product_company)
+    string=[$id.to_s,@product_name,@product_price,@product_st,@product_company].join("#{$separator}")
+    file=FileStructure.new()
+    file.append_content(string)
   end
 
   def list_product
-    f1=FileStructure.new
-    f1.list_detail
+    file=FileStructure.new
+    file.list_content
+  end
+
+  def is_number?(obj)
+        obj.to_s == obj.to_i.to_s
   end
 
   def search_product
-    puts "Enter Name Of Product to search"
-    product_name=gets.chomp
-    f1=FileStructure.new
-    f1.search_product(product_name)
+    file=FileStructure.new
+    lineno=file.get_line_number(@product_name)
+    if(is_number?"#{lineno}")
+      puts "search found at line #{lineno}"
+    else
+      puts "not found"
+    end
   end
 
   def remove_product
-    puts "Enter Product Name to remove :"
-    product_id=gets.chomp
-    f1=FileStructure.new
-    f1.remove_product(product_id)
+    file=FileStructure.new
+    file.remove_line(@product_name)
   end
 
+=begin
   def buy_product
     puts "Enter Name Of Product"
     product_name=gets.chomp
@@ -65,4 +64,5 @@ class Product
     o1=FileStructure.new
     o1.edit_product(product_id,new_name,new_price,new_stockno,new_company)
   end
+=end
 end

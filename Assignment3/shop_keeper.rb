@@ -16,24 +16,35 @@ class ShopKeeper
     puts "What You Wanted To Do ? "
 
     choice_id=gets
-
     puts "-----------------------"
     case choice_id
       when "1\n"
-          p1=Product.new
-          p1.add_product
+        puts "Enter Name Of Product"
+        product_name=gets.chomp
+        puts "Enter Price Of the Product"
+        product_price=gets.chomp
+        puts "Enter Product Stock-item"
+        product_stockno=gets.chomp
+        puts "Enter Company Name Of the Product"
+        product_company=gets.chomp
+        product=Product.new(product_name,product_price,product_stockno,product_company)
+        product.add_product
       when "2\n"
-          p1=Product.new
-          p1.remove_product
+        puts "Enter Name Of Product to Remove"
+        product_name=gets.chomp
+        product=Product.new(product_name)
+        product.remove_product
       when "3\n"
-         p1=Product.new
-         p1.list_product
+        product=Product.new()
+        product.list_product
       when "4\n"
-         p1=Product.new
-         p1.search_product
+        puts "Enter Product Name To SEARCH"
+        product_name=gets.chomp
+        product=Product.new(product_name)
+        product.search_product
       when "5\n"
-         p1=Product.new
-         p1.edit_product
+         #p1=Product.new
+         #p1.edit_product
       when "6\n"
          break
     end

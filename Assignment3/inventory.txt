@@ -1,0 +1,2 @@
+1|pepsi|12|21|cola
+1|magee|12|23|nestle
